@@ -42,20 +42,20 @@ fun Canvas.drawYinYan(i : Int, scale : Float, w : Float, h : Float, paint : Pain
     drawRect(RectF(0f, 0f, w, h * sf1), paint)
     val circleColors : Array<Int> = arrayOf(Color.WHITE, Color.BLACK)
     save()
-    translate(w / 2, -r + h * 0.5f * sf2)
+    translate(w / 2, -r + (h * 0.5f + r) * sf2)
     rotate(180f * sf3)
     for (j in 0..1) {
-        paint.color = circleColors[i]
+        paint.color = circleColors[j]
         save()
         rotate(180f * j)
         drawArc(RectF(-r, -r, r, r), 0f, 180f, true, paint)
         restore()
     }
     for (j in 0..1) {
-        paint.color = circleColors[i]
+        paint.color = circleColors[j]
         save()
         rotate(180f * j)
-        drawArc(RectF(-r, -r, 0f, 0f), 180f, 180f, true, paint)
+        drawArc(RectF(-r, -r / 2, 0f, r / 2), 180f, 180f, true, paint)
         restore()
     }
     restore()
@@ -139,7 +139,7 @@ class YinYanView(ctx : Context) : View(ctx) {
         private var prev : YYNode? = null
 
         init {
-
+            addNeighbor()
         }
 
         fun addNeighbor() {
@@ -213,9 +213,10 @@ class YinYanView(ctx : Context) : View(ctx) {
             }
         }
 
+
         fun handleTap() {
             yinYan.startUpdating {
-                animator.stop()
+                animator.start()
             }
         }
     }
