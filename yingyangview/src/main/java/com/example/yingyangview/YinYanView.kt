@@ -219,4 +219,13 @@ class YinYanView(ctx : Context) : View(ctx) {
             }
         }
     }
+
+    companion object {
+
+        fun create(activity : Activity) : YinYanView {
+            val view : YinYanView = YinYanView(activity)
+            activity.setContentView(view)
+            return view
+        }
+    }
 }
