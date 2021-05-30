@@ -195,4 +195,26 @@ class YinYanView(ctx : Context) : View(ctx) {
         }
     }
 
+    data class Renderer(var view : YinYanView) {
+
+        private var yinYan : YinYan = YinYan(0)
+        private val animator : Animator = Animator(view)
+        private val paint : Paint = Paint(Paint.ANTI_ALIAS_FLAG)
+
+        fun render(canvas : Canvas) {
+            canvas.drawColor(backColor)
+            yinYan.draw(canvas, paint)
+            animator.animate {
+                yinYan.update {
+                    animator.stop()
+                }
+            }
+        }
+
+        fun handleTap() {
+            yinYan.startUpdating {
+                animator.stop()
+            }
+        }
+    }
 }
