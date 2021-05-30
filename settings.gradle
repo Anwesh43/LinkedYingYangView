@@ -1,0 +1,3 @@
+include ':yingyangview'
+include ':app'
+rootProject.name = "LinkedYingYangView"
